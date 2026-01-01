@@ -3,6 +3,7 @@
 use App\Http\Controllers\classController;
 use App\Http\Controllers\studentController;
 use App\Http\Controllers\subjectController;
+use App\Http\Controllers\teacherController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,13 @@ Route::group(["prefix"=>"Admin"],function(){
         Route::get("new-assign",[subjectController::class,'new_assign'])->name("new-assign");
         Route::post("new-assign-subject",[subjectController::class,'new_assign_subject'])->name("new-assign-subject");
         Route::get("delete-assign-class/{id}",[subjectController::class,'delete_assign'])->name("delete-assign");
+    });
+    Route::prefix("/teachers")->group(function(){
+        Route::get("all-teacher",[teacherController::class,'all_teacher'])->name("all-teacher");
+        Route::get("add-teacher",[teacherController::class,'add_teacher'])->name("add-teacher");
+        Route::post("new-teacher",[teacherController::class,'new_teacher'])->name("new-teacher");
+        Route::get("edit-teacher/{id}",[teacherController::class,'edit_teacher'])->name("edit-teacher");
+        Route::post("update-teacher/{id}",[teacherController::class,'update_teacher'])->name("update-teacher");
+        Route::get("delete-teacher/{id}",[teacherController::class,'delete_teacher'])->name("delete-teacher");
     });
 });

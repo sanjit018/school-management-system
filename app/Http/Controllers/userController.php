@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classs;
 use App\Models\Subject;
+use App\Models\Teachers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -37,6 +38,7 @@ class userController extends Controller
     {
         $class=Classs::count();
         $subject=Subject::count();
-        return view('main.dashboard',compact('class','subject'));
+        $teacher=Teachers::count();
+        return view('main.dashboard',compact('class','subject','teacher'));
     }
 }
