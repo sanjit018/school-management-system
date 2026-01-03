@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssignClassTeacher;
+use App\Models\Classs;
+use App\Models\Subject;
 use App\Models\Teachers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -89,4 +92,37 @@ class teacherController extends Controller
         Teachers::delete($id);
         return redirect()->back(302)->with("success","Teacher Deleted Successfully");
     }
+
+    // for assign class with teacher and subject
+
+    public function new_assign_teacher()
+    {
+        $class= Classs::all();
+        $subject=Subject::all();
+        $teacher=Teachers::all();
+        return view("main.assign_class_teacher.new-assign_teacher",compact("class","subject","teacher"));
+    }
+    public function all_assign()
+    {
+       $all_data = AssignClassTeacher::with(['classes','teacher','subject'])->get();
+        return view("main.assign_class_subject.all-assign-subject",compact("all_data"));
+        // return $all_data;
+    }
+    public function add_assign_teacher(Request $request)
+    {
+        $request->validate([
+            "classname"=>"required",
+            "subject"=>"required",
+            "teacher"=>"required"
+        ]); 
+
+        AssignClassTeacher::create([
+            "class_id"=>$request->classname,
+            "subject_id"=>$request->subject,
+            "teacher_id"=>$request->teacher,
+            "unique_id"=>uniqid()
+        ]);
+        return redirect()->route("all-assign-teacher")->with("success","Teacher Successfully Added to Subject");
+    }
+
 }

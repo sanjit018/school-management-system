@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('assign_class_teacher', function (Blueprint $table) {
             $table->id();
+            $table->string("unique_id");
+            $table->string("class_id");
+            $table->string("subject_id");
+            $table->string("teacher_id");
+            $table->string("status")->default(0)->comment("0 for active & 1 for inactive");
             $table->timestamps();
         });
     }

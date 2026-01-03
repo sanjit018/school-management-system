@@ -111,13 +111,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route("all-assign-teacher") }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Assigned Teacher</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route("new-assign-teacher") }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add new assign</p>
                 </a>

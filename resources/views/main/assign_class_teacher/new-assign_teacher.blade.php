@@ -68,12 +68,12 @@
          <div class="col-12">
           <div class="card shadow pb-5">
             <div class="card-body">
-              <form action="{{ route("new-assign-subject") }}" method="post">
+              <form action="{{ route("add-assign-teacher") }}" method="post">
                 @csrf
                 <div class="row">
-                  <div class="col-12 col-lg-6">
+                  <div class="col-12 col-lg-6 mt-2">
                     <div class="row">
-                        <div class="col-2">Class Name</div>
+                        <div class="col-2">Class</div>
                         <div class="col-10">
                           <select name="classname" data-placeholder="Select Class" class="form-control select2 @error('classname') is-invalid @enderror">
                             @foreach ($class as $c)
@@ -88,11 +88,11 @@
                         </div>
                     </div>
                   </div>
-                  <div class="col-12 col-lg-6">
+                  <div class="col-12 col-lg-6 mt-2">
                     <div class="row">
-                        <div class="col-2">Subject Name</div>
+                        <div class="col-2">Subject</div>
                         <div class="col-10">
-                          <select name="subject[]" data-placeholder="Select multiple subject" multiple="multiple" class="form-control select2 @error('subject') is-invalid @enderror">
+                          <select name="subject" data-placeholder="Select subject" class="form-control select2 @error('subject') is-invalid @enderror">
                             <option value="">select</option>
                             @foreach ($subject as $s)
                             <option value="{{ $s->unique_id }}">{{ $s->name }}</option>
@@ -106,12 +106,30 @@
                         </div>
                     </div>
                   </div>
+                  <div class="col-12 col-lg-6 mt-2">
+                    <div class="row">
+                        <div class="col-2">Teacher</div>
+                        <div class="col-10">
+                          <select name="teacher" data-placeholder="Select teacher" class="form-control select2 @error('teacher') is-invalid @enderror">
+                            <option value="">select</option>
+                            @foreach ($teacher as $s)
+                            <option value="{{ $s->unique_id }}">{{ $s->name }}</option>
+                            @endforeach
+                          </select>
+                            @error('teacher')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                  </div>
                 
-                  <div class="col-12 col-lg-6">
+                  <div class="col-12 col-lg-6 mt-2">
                     <div class="row">
                       <div class="col-2"></div>
                       <div class="col-10">
-                        <button type="submit" class="btn btn-success">Add Subject to Class</button>
+                        <button type="submit" class="btn btn-success">Add Teacher to Subject</button>
                       </div>
                     </div>
                   </div>

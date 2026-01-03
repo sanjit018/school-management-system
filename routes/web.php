@@ -44,4 +44,9 @@ Route::group(["prefix"=>"Admin"],function(){
         Route::post("update-teacher/{id}",[teacherController::class,'update_teacher'])->name("update-teacher");
         Route::get("delete-teacher/{id}",[teacherController::class,'delete_teacher'])->name("delete-teacher");
     });
+    Route::prefix("/assign-class-teacher")->group(function(){
+        Route::get("all-assign-teacher",[teacherController::class,'all_assign'])->name("all-assign-teacher");
+        Route::get("new-assign-teacher",[teacherController::class,'new_assign_teacher'])->name("new-assign-teacher");
+        Route::post("add-teacher",[teacherController::class,'add_assign_teacher'])->name("add-assign-teacher");
+    });
 });
