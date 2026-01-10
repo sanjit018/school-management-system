@@ -13,6 +13,9 @@ Route::group(["prefix"=>"Admin"],function(){
     Route::get('dashboard',[userController::class,'dashboard'])->name("dashboard");
     Route::prefix('students')->group(function(){
         Route::get('class-wise-students',[studentController::class,'class_wise'])->name('class-wise');
+        Route::get("classes/{id}",[studentController::class,'class_single'])->name("classes");
+        Route::get("add-student/{id}",[studentController::class,'add_student'])->name("add-student");
+        Route::post("new-student",[studentController::class,'new_student'])->name("new-student");
     });
     Route::prefix("/classes")->group(function(){
         Route::get('all-classes',[classController::class,'all_class'])->name("all-class");
@@ -48,5 +51,8 @@ Route::group(["prefix"=>"Admin"],function(){
         Route::get("all-assign-teacher",[teacherController::class,'all_assign'])->name("all-assign-teacher");
         Route::get("new-assign-teacher",[teacherController::class,'new_assign_teacher'])->name("new-assign-teacher");
         Route::post("add-teacher",[teacherController::class,'add_assign_teacher'])->name("add-assign-teacher");
+        Route::get("edit-assign-teacher/{id}",[teacherController::class,'edit_assign_teacher'])->name("edit-assign-teacher");
+        Route::post("update-assign-teacher/{id}",[teacherController::class,'update_assign_teacher'])->name("update-assign-teacher");
+        ROute::get("delete-assign-teacher/{id}",[teacherController::class,'delete_assign_teacher'])->name("delete-assign-teacher");
     });
 });

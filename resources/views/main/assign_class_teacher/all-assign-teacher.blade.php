@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Teacher assign to class</title>
+  <title>AdminLTE 3 | Subject assign to class</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -44,12 +44,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Teacher Assign to Class</h1>
+            <h1 class="m-0">Teacher assigned to subject</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active">Teacher Assign to Class</li>
+              <li class="breadcrumb-item active">Teacher assigned to subject</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -67,32 +67,36 @@
             <div class="card-header bg-primary">
               <div class="d-flex justify-content-around align-items-center">
                 <div class="col-3">
-                  <h2 class="card-title">All Assign Teachers</h2>
+                  <h2 class="card-title">All Assign Teacher to Subject</h2>
                 </div>
-                <div class="col-3"><a href="{{ route("new-assign") }}" class="btn btn-success"><i class="fas fa-plus"></i> New</a></div>
+                <div class="col-3"><a href="{{ route("new-assign-teacher") }}" class="btn btn-success"><i class="fas fa-plus"></i> New</a></div>
               </div>
             </div>
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Class Name</th>
-                  <th>Subjects Name</th>
-                  {{-- <th>Edit</th> --}}
+                  <th>Class</th>
+                  <th>Subjects</th>
+                  <th>Teacher</th>
+                  <th>Edit</th>
                   <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach ($all_assign as $val)
+                  @foreach ($all_data as $val)
                     <tr>
                       <td>@foreach ($val->classes as $c)
                         {{ $c->name }}
                       @endforeach</td>
-                      <td>@foreach ($val->subjects as $s)
+                      <td>@foreach ($val->subject as $s)
                         {{ $s->name }}
                       @endforeach</td>
-                      {{-- <td><a href="" class="btn btn-success"><i class="fas fa-edit"></i></a></td> --}}
-                      <td><a href="{{ route("delete-assign",$val->unique_id) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                      <td>@foreach ($val->teacher as $s)
+                        {{ $s->name }}
+                      @endforeach</td>
+                      <td><a href="{{ route("edit-assign-teacher",$val->unique_id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a></td>
+                      <td><a href="{{ route("delete-assign-teacher",$val->unique_id) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                     </tr>
                   @endforeach
                 </tbody>

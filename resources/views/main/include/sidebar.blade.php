@@ -45,7 +45,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{ route("class-wise") }}" class="nav-link">
               <i class="nav-icon fas fa-user-plus"></i>
               {{-- <i class="nav-icon fas fa-th"></i> --}}
               <p>

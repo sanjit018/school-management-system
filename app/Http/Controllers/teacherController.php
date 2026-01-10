@@ -105,7 +105,7 @@ class teacherController extends Controller
     public function all_assign()
     {
        $all_data = AssignClassTeacher::with(['classes','teacher','subject'])->get();
-        return view("main.assign_class_subject.all-assign-subject",compact("all_data"));
+        return view("main.assign_class_teacher.all-assign-teacher",compact("all_data"));
         // return $all_data;
     }
     public function add_assign_teacher(Request $request)
@@ -124,5 +124,31 @@ class teacherController extends Controller
         ]);
         return redirect()->route("all-assign-teacher")->with("success","Teacher Successfully Added to Subject");
     }
-
+    public function edit_assign_teacher(string $id)
+    {
+        $detail=AssignClassTeacher::where("unique_id",$id)->first();
+        $class= Classs::all();
+        $subject=Subject::all();
+        $teacher=Teachers::all();
+        return view("main.assign_class_teacher.edit-assign_teacher",compact("detail","class","subject","teacher"));
+    }
+    public function update_assign_teacher(Request $request,string $id)
+    {
+        $request->validate([
+            "classname"=>"required",
+            "subject"=>"required",
+            "teacher"=>"required"
+        ]);
+        AssignClassTeacher::where("unique_id",$id)->update([
+            "class_id"=>$request->classname,
+            "subject_id"=>$request->subject,
+            "teacher_id"=>$request->teacher,
+        ]);
+        return redirect()->route("all-assign-teacher")->with("success","Details Updated Successfully");
+    }
+    public function delete_assign_teacher(string $id)
+    {
+        AssignClassTeacher::where("unique_id",$id)->delete();
+        return redirect()->back()->with("success","Deleted Successfully");
+    }
 }
