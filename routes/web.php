@@ -16,6 +16,9 @@ Route::group(["prefix"=>"Admin"],function(){
         Route::get("classes/{id}",[studentController::class,'class_single'])->name("classes");
         Route::get("add-student/{id}",[studentController::class,'add_student'])->name("add-student");
         Route::post("new-student",[studentController::class,'new_student'])->name("new-student");
+        Route::get("edit-personal/{id}",[studentController::class,'edit_personal'])->name("edit-personal");
+        Route::post("update-personal/{id}",[studentController::class,'update_personal'])->name("update-personal");
+        Route::post("update-academic/{id}",[studentController::class,'update_academic'])->name("update-academic");
     });
     Route::prefix("/classes")->group(function(){
         Route::get('all-classes',[classController::class,'all_class'])->name("all-class");

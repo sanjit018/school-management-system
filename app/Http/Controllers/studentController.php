@@ -6,6 +6,7 @@ use App\Models\Classs;
 use App\Models\StudentAcademicHistory;
 use App\Models\Students;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class studentController extends Controller
@@ -17,7 +18,7 @@ class studentController extends Controller
     }
     public function class_single(string $id)
     {
-        $student=StudentAcademicHistory::with(['students'])->where("class_id",$id)->get();
+        $student=StudentAcademicHistory::with(['students'])->where("class_id",$id)->where("academic_year",date('Y'))->get();
         $class_name=Classs::where("unique_id",$id)->get();
         return view("main.student.all-student",compact('id','student','class_name'));
         // return $class_name;
@@ -68,6 +69,47 @@ class studentController extends Controller
             "roll_number"=>$request->roll_number,
         ]);
         return redirect()->back()->with("success","Student Created Successfully");
+    }
+    public function edit_personal(string $id)
+    {
+        $data = StudentAcademicHistory::with(['students'])->where("unique_id",$id)->get();
+        // return $data;
+        return view("main.student.edit-student",compact('data'));
+    }
+    public function update_personal(string $id,Request $request)
+    {
+        $st_detail=Students::where("unique_id",$id)->get();
+        $request->validate([
+            "name"=>"required|string",
+            "mname"=>"required|string",
+            "fname"=>"required|string",
+            "contact"=>"required|min_digits:10|unique:students,contact",
+            "email"=>"required|email",
+            "gender"=>"required",
+            "dob"=>"required|date",
+        ]);
+        if ($request->hasFile('profile')) {
+
+            // Delete old image if exists
+            if (!empty($st_detail->profile) && Storage::disk('public')->exists($st_detail->profile)) {
+                Storage::disk('public')->delete($st_detail->profile);
+            }
+
+            // Upload new image
+            $path = $request->file('profile')->store('student', 'public');
+
+            // Update DB field
+            $st_detail->profile = $path;
+        }
+        return $st_detail;
+    }
+    public function update_academic(string $id,Request $request)
+    {
+        $request->validate([
+            "roll_number"=>"required",
+            "academic_year"=>"required",
+            "section"=>"required"
+        ]);
     }
 }
 

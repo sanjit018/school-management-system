@@ -98,14 +98,14 @@
                     <tr>
                       @foreach ($val->students as $s)
                       <td>{{$s->name}}</td>
-                      <td><img src="{{asset('storage/'.$s->profile)}}" alt="" width="50" height="50" style="border-radius: 50%"></td>
+                      <td><img src="{{asset('storage/'.$s->profile)}}" width="50" height="50" style="border-radius: 50%;object-fit: cover"></td>
                       <td>{{$s->fname}}</td>
                       <td>{{$s->contact}}</td>
                       @endforeach 
                       <td>{{$val->section}}</td>
                       <td>{{$val->roll_number}}</td>
                       <td>{{$val->academic_year}}</td>
-                      <td><a href="{{ route('edit-teacher',$val->unique_id) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a></td>
+                      <td><a href="{{ route('edit-personal',$val->unique_id) }}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a></td>
                       <td><a href="{{ route('delete-class',$val->unique_id) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a></td>
                     </tr>
                   @endforeach
