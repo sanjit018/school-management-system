@@ -7,7 +7,6 @@ use App\Models\StudentAcademicHistory;
 use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class studentController extends Controller
 {
@@ -78,16 +77,18 @@ class studentController extends Controller
     }
     public function update_personal(string $id,Request $request)
     {
-        $st_detail=Students::where("unique_id",$id)->get();
+        $st_detail=Students::where("unique_id",$id)->firstOrFail('profile');
         $request->validate([
             "name"=>"required|string",
             "mname"=>"required|string",
             "fname"=>"required|string",
-            "contact"=>"required|min_digits:10|unique:students,contact",
+            "contact"=>"required|min_digits:10",
             "email"=>"required|email",
             "gender"=>"required",
             "dob"=>"required|date",
+            "profile"=>"nullable|image"
         ]);
+        $path=$st_detail->profile;
         if ($request->hasFile('profile')) {
 
             // Delete old image if exists
@@ -98,18 +99,33 @@ class studentController extends Controller
             // Upload new image
             $path = $request->file('profile')->store('student', 'public');
 
-            // Update DB field
-            $st_detail->profile = $path;
         }
-        return $st_detail;
+        Students::where("unique_id",$id)->update([
+            "name"=>$request->name,
+            "mname"=>$request->mname,
+            "fname"=>$request->fname,
+            "contact"=>$request->contact,
+            "email"=>$request->email,
+            "gender"=>$request->gender,
+            "dob"=>$request->dob,
+            "profile"=>$path
+        ]);
+        return redirect()->back()->with("success","Student Personal Data Updated");
     }
     public function update_academic(string $id,Request $request)
     {
         $request->validate([
             "roll_number"=>"required",
-            "academic_year"=>"required",
+            "session"=>"required",
             "section"=>"required"
         ]);
+        StudentAcademicHistory::where("unique_id",$id)->update([
+            "roll_number"=>$request->roll_number,
+            "academic_year"=>$request->session,
+            "section"=>$request->section
+        ]);
+        // return ($request);
+        return redirect()->back()->with("success","Student Academic Data Updated");
     }
 }
 

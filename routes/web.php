@@ -56,6 +56,8 @@ Route::group(["prefix"=>"Admin"],function(){
         Route::post("add-teacher",[teacherController::class,'add_assign_teacher'])->name("add-assign-teacher");
         Route::get("edit-assign-teacher/{id}",[teacherController::class,'edit_assign_teacher'])->name("edit-assign-teacher");
         Route::post("update-assign-teacher/{id}",[teacherController::class,'update_assign_teacher'])->name("update-assign-teacher");
-        ROute::get("delete-assign-teacher/{id}",[teacherController::class,'delete_assign_teacher'])->name("delete-assign-teacher");
+        Route::get("delete-assign-teacher/{id}",[teacherController::class,'delete_assign_teacher'])->name("delete-assign-teacher");
     });
+    Route::get("year-upgradation",[userController::class,'year_upgrade'])->name("year-upgrade");
+    Route::post("year-upgrade",[userController::class,'year_upgrades'])->name("year-upgrades");
 });

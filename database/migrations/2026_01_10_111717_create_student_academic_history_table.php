@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string("student_id");
             $table->string("class_id");
             $table->string("academic_year");
-            $table->string("roll_number");
-            $table->string("section");
+            $table->string("roll_number")->nullable();
+            $table->string("section")->nullable();
             $table->timestamps();
         });
     }

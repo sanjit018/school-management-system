@@ -82,6 +82,7 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th><input type="checkbox" value="check" name="check" id="select_all"></th>
                   <th>Name</th>
                   <th>Profile</th>
                   <th>Father</th>
@@ -97,6 +98,7 @@
                   @foreach ($student as $val)  
                     <tr>
                       @foreach ($val->students as $s)
+                      <td><input type="checkbox" name="ids[]" value="{{ $s->unique_id }}" class="row_check"></td>
                       <td>{{$s->name}}</td>
                       <td><img src="{{asset('storage/'.$s->profile)}}" width="50" height="50" style="border-radius: 50%;object-fit: cover"></td>
                       <td>{{$s->fname}}</td>
@@ -134,6 +136,13 @@
 
 <!-- jQuery -->
 <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
+<script>
+  $(function(){
+    $("#select_all").click(function(){
+      $('.row_check').prop('checked', this.checked);
+    })
+  });
+</script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -197,7 +206,9 @@
       "autoWidth": false,
       "responsive": true,
     });
+    
   });
 </script>
+
 </body>
 </html>

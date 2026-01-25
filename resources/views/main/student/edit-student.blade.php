@@ -376,10 +376,6 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- SweetAlert2 -->
-<script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
-<!-- Toastr -->
-<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 <!-- Sparkline -->
 <script src="{{ asset('plugins/sparklines/sparkline.js')}}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
@@ -389,6 +385,23 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.js')}}"></script>
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+<!-- SweetAlert2 -->
+<script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+@if(session('success'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: "{{ session('success') }}",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true
+    });
+</script>
+@endif
 <!-- DataTables  & Plugins -->
 {{-- <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
